@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GRWM | Your Look</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            box-sizing:border-box;
+            margin:0;
+            padding:0;
+        }
+
+        :root {
+            --purple:#8b5cf6;
+            --pink:#ec4899;
+            --dark:#29222d;
+            --muted:#817987;
+            --background:#faf8fc;
+            --border:rgba(139,92,246,.13);
+        }
+
+        body {
+            font-family:"DM Sans",sans-serif;
+            background:var(--background);
+            color:var(--dark);
+        }
+
+        .navbar {
+            height:75px;
+            padding:0 7%;
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            background:white;
+            border-bottom:1px solid var(--border);
+        }
+
+        .logo {
+            color:var(--purple);
+            font-size:22px;
+            font-weight:700;
+        }
+
+        .nav-links {
+            display:flex;
+            gap:25px;
+            align-items:center;
+        }
+
+        .nav-links a {
+            text-decoration:none;
+            color:var(--muted);
+            font-size:14px;
+            font-weight:600;
+        }
+
+        .nav-links a:hover {
+            color:var(--purple);
+        }
+
+        .logout {
+            width:auto;
+            padding:9px 18px;
+            border:0;
+            border-radius:10px;
+            color:white;
+            background:linear-gradient(135deg,var(--purple),var(--pink));
+            font-weight:700;
+            cursor:pointer;
+        }
+
+        .result-container {
+            max-width:1100px;
+            margin:auto;
+            padding:55px 25px;
+        }
+
+        .result-heading {
+            text-align:center;
+            margin-bottom:40px;
+        }
+
+        .result-heading h1 {
+            font-family:"Playfair Display",serif;
+            font-size:48px;
+            margin-bottom:10px;
+        }
+
+        .result-heading p {
+            color:var(--muted);
+        }
+
+        .result-layout {
+            display:grid;
+            grid-template-columns:1fr 1fr;
+            gap:30px;
+        }
+
+        .look-visual {
+            min-height:500px;
+            border-radius:28px;
+            background:linear-gradient(145deg,#eee6ff,#ffeaf5);
+            display:flex;
+            flex-direction:column;
+            justify-content:center;
+            align-items:center;
+            text-align:center;
+            position:relative;
+            overflow:hidden;
+        }
+
+        .result-model {
+            font-size:150px;
+            margin-bottom:20px;
+        }
+
+        .result-shoes {
+            font-size:65px;
+        }
+
+        .look-details {
+            background:white;
+            border:1px solid var(--border);
+            border-radius:28px;
+            padding:35px;
+            box-shadow:0 20px 50px rgba(70,40,90,.07);
+        }
+
+        .look-badge {
+            display:inline-block;
+            background:#f2eaff;
+            color:var(--purple);
+            padding:7px 13px;
+            border-radius:20px;
+            font-size:12px;
+            font-weight:700;
+            margin-bottom:15px;
+        }
+
+        .look-details h2 {
+            font-family:"Playfair Display",serif;
+            font-size:34px;
+            margin-bottom:12px;
+        }
+
+        .look-details > p {
+            color:var(--muted);
+            line-height:1.6;
+            margin-bottom:25px;
+        }
+
+        .details-list {
+            display:grid;
+            gap:13px;
+            margin-bottom:25px;
+        }
+
+        .detail {
+            display:flex;
+            justify-content:space-between;
+            gap:20px;
+            padding-bottom:12px;
+            border-bottom:1px solid #eee8f2;
+        }
+
+        .detail span:first-child {
+            color:var(--muted);
+        }
+
+        .detail span:last-child {
+            font-weight:600;
+            text-align:right;
+        }
+
+        .result-buttons {
+            display:flex;
+            gap:12px;
+        }
+
+        .result-buttons a {
+            flex:1;
+        }
+
+        .result-buttons button {
+            width:100%;
+            padding:13px;
+            border:0;
+            border-radius:11px;
+            background:linear-gradient(135deg,var(--purple),var(--pink));
+            color:white;
+            font-family:inherit;
+            font-weight:700;
+            cursor:pointer;
+        }
+
+        .result-buttons .secondary {
+            background:white;
+            color:var(--purple);
+            border:1px solid var(--purple);
+        }
+
+        .style-note {
+            margin-top:25px;
+            padding:20px;
+            border-radius:15px;
+            background:#faf7ff;
+        }
+
+        .style-note strong {
+            color:var(--purple);
+        }
+
+        @media(max-width:800px) {
+            .result-layout {
+                grid-template-columns:1fr;
+            }
+
+            .result-model {
+                font-size:110px;
+            }
+
+            .nav-links {
+                gap:8px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar">
+
+        <div class="logo">✦ GRWM</div>
+
+        <div class="nav-links">
+            <a href="dashboard.html">Dashboard</a>
+            <a href="profile.html">Profile</a>
+            <a href="wardrobe.html">Wardrobe</a>
+            <a href="recommendation.html">Style Me</a>
+            <button class="logout" onclick="logout()">Logout</button>
+        </div>
+
+    </nav>
+
+    <main class="result-container">
+
+        <div class="result-heading">
+
+            <p style="color:var(--pink);font-weight:700;">
+                ✦ YOUR PERFECT LOOK
+            </p>
+
+            <h1>Here's the vibe!!</h1>
+
+            <p>
+                Your personalized GRWM recommendation is ready.
+            </p>
+
+        </div>
+
+        <div class="result-layout">
+
+            <div class="look-visual">
+
+                <div class="result-model" id="result-model">
+                    👩🏻
+                </div>
+
+                <div class="result-shoes" id="result-shoes">
+                    👟
+                </div>
+
+            </div>
+
+            <div class="look-details">
+
+                <span class="look-badge">
+                    GRWM RECOMMENDATION
+                </span>
+
+                <h2 id="resultTitle">
+                    Your Perfect Look
+                </h2>
+
+                <p id="resultDescription">
+                    A stylish outfit created especially for your selected occasion and vibe.
+                </p>
+
+                <div class="details-list">
+
+                    <div class="detail">
+                        <span>Occasion</span>
+                        <span id="resultOccasion">Casual</span>
+                    </div>
+
+                    <div class="detail">
+                        <span>Weather</span>
+                        <span id="resultWeather">Comfortable</span>
+                    </div>
+
+                    <div class="detail">
+                        <span>Vibe</span>
+                        <span id="resultVibe">Trendy</span>
+                    </div>
+
+                    <div class="detail">
+                        <span>Top</span>
+                        <span id="resultTop">Your selected top</span>
+                    </div>
+
+                    <div class="detail">
+                        <span>Bottom</span>
+                        <span id="resultBottom">Your selected bottom</span>
+                    </div>
+
+                    <div class="detail">
+                        <span>Shoes</span>
+                        <span id="resultShoes">Sneakers</span>
+                    </div>
+
+                    <div class="detail">
+                        <span>Accessory</span>
+                        <span id="resultAccessory">Minimal accessories</span>
+                    </div>
+
+                </div>
+
+                <div class="result-buttons">
+
+                    <a href="recommendation.html">
+                        <button class="secondary">
+                            Try Another
+                        </button>
+                    </a>
+
+                    <a href="wardrobe.html">
+                        <button>
+                            View Wardrobe
+                        </button>
+                    </a>
+
+                </div>
+
+                <div class="style-note">
+
+                    <strong>💡Style Note</strong>
+
+                    <p id="styleTip"
+                       style="color:var(--muted);margin-top:7px;">
+                        Confidence is always the best accessory.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+    <script src="file.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,14 @@
+__pycache__/
+*.py[cod]
+*$py.class
+*.env
+.venv/
+venv/
+ENV/
+database/grwm.db
+static/uploads/profiles/*
+!static/uploads/profiles/.gitkeep
+static/uploads/wardrobe/*
+!static/uploads/wardrobe/.gitkeep
+.DS_Store
+Thumbs.db

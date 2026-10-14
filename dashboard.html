@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GRWM | Dashboard</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --purple:#8b5cf6;
+            --pink:#ec4899;
+            --dark:#29222d;
+            --muted:#817987;
+            --background:#faf8fc;
+            --border:rgba(139,92,246,.13);
+        }
+
+        body {
+            font-family:"DM Sans",sans-serif;
+            background:var(--background);
+            color:var(--dark);
+            min-height:100vh;
+        }
+
+        .navbar {
+            height:75px;
+            padding:0 7%;
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            background:rgba(255,255,255,.85);
+            border-bottom:1px solid var(--border);
+            position:sticky;
+            top:0;
+            z-index:10;
+            backdrop-filter:blur(10px);
+        }
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--purple);
+        }
+
+
+        .logo {
+            color:var(--purple);
+            font-size:22px;
+            font-weight:700;
+        }
+
+        .nav-links {
+            display:flex;
+            gap:28px;
+            align-items:center;
+        }
+
+        .nav-links a {
+            text-decoration:none;
+            color:var(--muted);
+            font-size:14px;
+            font-weight:600;
+        }
+
+        .nav-links a:hover {
+            color:var(--purple);
+        }
+
+        .logout {
+            width:auto;
+            padding:9px 18px;
+            background:linear-gradient(135deg,var(--purple),var(--pink));
+            border:none;
+            border-radius:10px;
+            color:white;
+            font-weight:700;
+            cursor:pointer;
+        }
+
+        .dashboard-container {
+            max-width:1200px;
+            margin:auto;
+            padding:55px 25px;
+        }
+
+        .dashboard-hero {
+            display:grid;
+            grid-template-columns:1.5fr 1fr;
+            gap:30px;
+            align-items:center;
+            margin-bottom:40px;
+        }
+
+        .dashboard-hero h1 {
+            font-family:"Playfair Display",serif;
+            font-size:52px;
+            line-height:1.1;
+            margin-bottom:15px;
+        }
+
+        .dashboard-hero h1 span {
+            color:var(--purple);
+        }
+
+        .dashboard-hero p {
+            color:var(--muted);
+            line-height:1.7;
+            max-width:550px;
+        }
+
+        .hero-fashion-card {
+            padding:40px;
+            border-radius:28px;
+            background:linear-gradient(135deg,#f1eaff,#ffe9f4);
+            text-align:center;
+            font-size:70px;
+            box-shadow:0 20px 40px rgba(70,40,90,.08);
+        }
+
+        .dashboard-grid {
+            display:grid;
+            grid-template-columns:repeat(2,1fr);
+            gap:25px;
+            margin-bottom:40px;
+        }
+
+        .dashboard-card {
+            background:white;
+            border:1px solid var(--border);
+            padding:30px;
+            border-radius:22px;
+            transition:.3s;
+        }
+
+        .dashboard-card:hover {
+            transform:translateY(-5px);
+            box-shadow:0 15px 35px rgba(70,40,90,.08);
+        }
+
+        .dashboard-card h3 {
+            font-family:"Playfair Display",serif;
+            font-size:25px;
+            margin-bottom:10px;
+        }
+
+        .dashboard-card p {
+            color:var(--muted);
+            margin-bottom:20px;
+        }
+
+        .count {
+            font-size:40px;
+            color:var(--purple);
+            font-weight:700;
+        }
+
+        .dashboard-card button {
+            width:auto;
+            padding:11px 20px;
+        }
+
+        .quick-section h2 {
+            font-family:"Playfair Display",serif;
+            font-size:30px;
+            margin-bottom:20px;
+        }
+
+        .quick-grid {
+            display:grid;
+            grid-template-columns:repeat(3,1fr);
+            gap:15px;
+        }
+
+        .quick-grid a {
+            text-decoration:none;
+            background:white;
+            color:var(--dark);
+            padding:20px;
+            border:1px solid var(--border);
+            border-radius:15px;
+            text-align:center;
+            font-weight:600;
+            transition:.3s;
+        }
+
+        .quick-grid a:hover {
+            color:var(--purple);
+            transform:translateY(-3px);
+        }
+
+        @media(max-width:800px) {
+            .nav-links {
+                gap:10px;
+            }
+
+            .dashboard-hero {
+                grid-template-columns:1fr;
+            }
+
+            .dashboard-grid,
+            .quick-grid {
+                grid-template-columns:1fr;
+            }
+
+            .dashboard-hero h1 {
+                font-size:42px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar">
+
+        <div class="logo">✦ GRWM</div>
+
+        <div class="nav-links">
+            <a href="dashboard.html">Dashboard</a>
+            <a href="profile.html">Profile</a>
+            <a href="wardrobe.html">Wardrobe</a>
+            <a href="recommendation.html">Style Me</a>
+            <button class="logout" onclick="logout()">Logout</button>
+        </div>
+
+    </nav>
+
+    <main class="dashboard-container">
+
+        <section class="dashboard-hero">
+
+            <div>
+                <p style="color:var(--pink);font-weight:700;margin-bottom:10px;">
+                    ✦ WELCOME BACK BESTIE
+                </p>
+
+                <h1>
+                    Your style,<br>
+                    <span>your rules.</span>
+                </h1>
+
+                <p>
+                    Manage your wardrobe, discover new looks and create outfits that feel completely you.
+                </p>
+            </div>
+
+            <div class="hero-fashion-card">
+                👗👜
+            </div>
+
+        </section>
+
+        <section class="dashboard-grid">
+
+            <div class="dashboard-card">
+                <div style="font-size:35px;margin-bottom:15px;">👚</div>
+                <h3>My Wardrobe</h3>
+                <p>Keep all your favorite pieces in one place.</p>
+                <div class="count" id="wardrobeCount">0</div>
+                <p>items in your wardrobe</p>
+                <a href="wardrobe.html">
+                    <button>View Wardrobe</button>
+                </a>
+            </div>
+
+            <div class="dashboard-card">
+                <div style="font-size:35px;margin-bottom:15px;">✨</div>
+                <h3>Style Me</h3>
+                <p>Tell us the occasion and discover a look.</p>
+                <a href="recommendation.html">
+                    <button>Create a Look</button>
+                </a>
+            </div>
+
+        </section>
+
+        <section class="quick-section">
+
+            <h2>Quick Access</h2>
+
+            <div class="quick-grid">
+
+                <a href="recommendation.html?occasion=College">
+                    🎓 College
+                </a>
+
+                <a href="recommendation.html?occasion=Office">
+                    💼 Office
+                </a>
+
+                <a href="recommendation.html?occasion=Party">
+                    🎉 Party
+                </a>
+
+                <a href="recommendation.html?occasion=Casual">
+                    👟 Casual
+                </a>
+
+                <a href="recommendation.html?occasion=Wedding">
+                    💍 Wedding
+                </a>
+
+                <a href="recommendation.html?occasion=Festival">
+                    🪔 Festival
+                </a>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <script src="file.js"></script>
+
+</body>
+</html>

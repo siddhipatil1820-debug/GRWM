@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>GRWM | Profile</title>
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+          rel="stylesheet">
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --purple: #8b5cf6;
+            --pink: #ec4899;
+            --dark: #29222d;
+            --muted: #817987;
+            --background: #faf8fc;
+            --border: rgba(139, 92, 246, 0.13);
+        }
+
+        body {
+            font-family: "DM Sans", sans-serif;
+            background: var(--background);
+            color: var(--dark);
+            min-height: 100vh;
+        }
+
+        .blob {
+            position: fixed;
+            width: 350px;
+            height: 350px;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.16;
+            z-index: -1;
+        }
+
+        .blob-one {
+            background: var(--purple);
+            top: -120px;
+            left: -100px;
+        }
+
+        .blob-two {
+            background: var(--pink);
+            bottom: -120px;
+            right: -100px;
+        }
+
+        .navbar {
+            height: 75px;
+            padding: 0 7%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(255, 255, 255, 0.88);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-brand {
+            color: var(--purple);
+            font-size: 22px;
+            font-weight: 700;
+        }
+
+        .nav-brand span {
+            margin-right: 5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            transition: 0.25s;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--purple);
+        }
+
+        .logout-btn {
+            text-decoration: none;
+            color: white;
+            background: linear-gradient(
+                135deg,
+                var(--purple),
+                var(--pink)
+            );
+            padding: 10px 18px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 700;
+            transition: 0.3s;
+        }
+
+        .logout-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .profile-page {
+            max-width: 1150px;
+            margin: auto;
+            padding: 55px 25px;
+        }
+        .profile-intro {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .eyebrow {
+            color: var(--pink);
+            font-weight: 700;
+            font-size: 13px;
+            margin-bottom: 10px;
+        }
+
+        .profile-intro h1 {
+            font-family: "Playfair Display", serif;
+            font-size: 48px;
+            margin-bottom: 12px;
+        }
+
+        .profile-intro h1 span {
+            color: var(--purple);
+        }
+
+        .profile-intro > p:last-child {
+            color: var(--muted);
+            line-height: 1.6;
+        }
+
+        .profile-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+        }
+
+        .profile-card {
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 30px;
+            box-shadow: 0 18px 45px rgba(70, 40, 90, 0.07);
+            transition: 0.3s;
+        }
+
+        .profile-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 22px 50px rgba(70, 40, 90, 0.09);
+        }
+
+        .photo-card {
+            grid-column: 1 / -1;
+        }
+
+        .tryon-card {
+            grid-column: 1 / -1;
+        }
+
+        .card-heading {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .card-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            background: #f1eaff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+
+        .card-heading h2 {
+            font-family: "Playfair Display", serif;
+            font-size: 24px;
+            margin-bottom: 4px;
+        }
+
+        .card-heading p {
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .profile-photo-section {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .profile-photo-preview {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 5px solid #f0e8ff;
+            background: #f8f4ff;
+            flex-shrink: 0;
+        }
+
+        .profile-photo-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .photo-info {
+            flex: 1;
+        }
+
+        .photo-info h3 {
+            font-family: "Playfair Display", serif;
+            font-size: 22px;
+            margin-bottom: 8px;
+        }
+
+        .photo-info p {
+            color: var(--muted);
+            line-height: 1.6;
+            font-size: 14px;
+            max-width: 600px;
+            margin-bottom: 18px;
+        }
+
+        .upload-photo-btn {
+            display: inline-block;
+            padding: 12px 18px;
+            border-radius: 10px;
+            background: linear-gradient(
+                135deg,
+                var(--purple),
+                var(--pink)
+            );
+            color: white;
+            font-weight: 700;
+            font-size: 13px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .upload-photo-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(139, 92, 246, 0.2);
+        }
+
+        .remove-photo-btn {
+            width: auto;
+            padding: 11px 16px;
+            margin-left: 8px;
+            border: 1px solid #e4ddea;
+            border-radius: 10px;
+            background: white;
+            color: var(--muted);
+            font-family: inherit;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .remove-photo-btn:hover {
+            color: var(--pink);
+            border-color: var(--pink);
+        }
+
+        .input-group {
+            margin-bottom: 18px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 7px;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 15px;
+            z-index: 1;
+        }
+
+        .input-wrapper input,
+        .input-wrapper select {
+            width: 100%;
+            padding: 13px 15px 13px 42px;
+            border: 1px solid #e5deed;
+            border-radius: 11px;
+            outline: none;
+            background: white;
+            font-family: inherit;
+            color: var(--dark);
+            transition: 0.25s;
+        }
+
+        .input-wrapper input:focus,
+        .input-wrapper select:focus {
+            border-color: var(--purple);
+            box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.07);
+        }
+
+        .primary-btn,
+        .secondary-btn {
+            width: 100%;
+            padding: 14px 18px;
+            border-radius: 11px;
+            font-family: inherit;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .primary-btn {
+            border: 0;
+            color: white;
+            background: linear-gradient(
+                135deg,
+                var(--purple),
+                var(--pink)
+            );
+        }
+
+        .primary-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(139, 92, 246, 0.22);
+        }
+
+        .primary-btn strong {
+            margin-left: 8px;
+        }
+
+        .secondary-btn {
+            border: 1px solid var(--purple);
+            color: var(--purple);
+            background: white;
+        }
+
+        .secondary-btn:hover {
+            background: #f7f2ff;
+            transform: translateY(-2px);
+        }
+
+        .try-on-section {
+            text-align: center;
+            padding: 15px 10px 5px;
+        }
+
+        .try-on-icon {
+            font-size: 50px;
+            margin-bottom: 12px;
+        }
+
+        .try-on-section h3 {
+            font-family: "Playfair Display", serif;
+            font-size: 25px;
+            margin-bottom: 8px;
+        }
+
+        .try-on-section p {
+            color: var(--muted);
+            line-height: 1.6;
+            max-width: 600px;
+            margin: 0 auto 20px;
+        }
+
+        .try-on-section .primary-btn {
+            max-width: 300px;
+        }
+
+        .toast {
+            position: fixed;
+            right: 25px;
+            bottom: 25px;
+            display: none;
+            align-items: center;
+            gap: 10px;
+            padding: 15px 20px;
+            background: var(--dark);
+            color: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            z-index: 20;
+        }
+
+        .toast p {
+            margin: 0;
+            font-size: 14px;
+        }
+
+        @media (max-width: 800px) {
+
+            .nav-links {
+                gap: 10px;
+            }
+
+            .profile-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .photo-card,
+            .tryon-card {
+                grid-column: auto;
+            }
+
+            .profile-photo-section {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .remove-photo-btn {
+                margin-left: 5px;
+                margin-top: 10px;
+            }
+        }
+
+        @media (max-width: 600px) {
+
+            .navbar {
+                padding: 0 20px;
+            }
+
+            .nav-links a {
+                display: none;
+            }
+
+            .profile-page {
+                padding: 35px 18px;
+            }
+
+            .profile-intro h1 {
+                font-size: 40px;
+            }
+
+            .profile-card {
+                padding: 22px;
+            }
+
+            .profile-photo-preview {
+                width: 140px;
+                height: 140px;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+    <div class="blob blob-one"></div>
+
+    <div class="blob blob-two"></div>
+
+
+    <header class="navbar">
+
+        <div class="nav-brand">
+
+            <span>✦</span>
+
+            GRWM
+
+        </div>
+
+
+        <nav class="nav-links">
+
+            <a href="/dashboard">
+                Dashboard
+            </a>
+
+            <a href="/profile"
+               class="active">
+                Profile
+            </a>
+
+            <a href="/wardrobe">
+                My Wardrobe
+            </a>
+
+            <a href="/style">
+                Style Me
+            </a>
+
+        </nav>
+
+
+        <a href="/login"
+           class="logout-btn">
+
+            Logout
+
+        </a>
+
+    </header>
+
+
+    <main class="profile-page">
+
+
+        <section class="profile-intro">
+
+            <p class="eyebrow">
+                ✦ YOUR STYLE SPACE
+            </p>
+
+            <h1>
+                My <span>Profile</span>
+            </h1>
+
+            <p>
+                Make your GRWM experience more personal
+                by adding your details and photo.
+            </p>
+
+        </section>
+
+
+        <section class="profile-grid">
+
+            <div class="profile-card photo-card">
+
+                <div class="card-heading">
+
+                    <div class="card-icon">
+                        📸
+                    </div>
+
+                    <div>
+
+                        <h2>
+                            Your Photo
+                        </h2>
+
+                        <p>
+                            Upload your photo for personalized
+                            outfit previews.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="profile-photo-section">
+
+
+                    <div class="profile-photo-preview">
+
+                        <img
+                            id="profilePhoto"
+                            src="images/default-profile.png"
+                            alt="Profile Photo">
+
+                    </div>
+
+
+                    <div class="photo-info">
+
+                        <h3>
+                            Add Your Photo
+                        </h3>
+
+                        <p>
+                            Upload a clear photo of yourself.
+                            GRWM can use this photo for your
+                            personalized outfit preview.
+                        </p>
+
+
+                        <input
+                            type="file"
+                            id="photoInput"
+                            accept="image/png, image/jpeg, image/jpg"
+                            hidden>
+
+
+                        <label
+                            for="photoInput"
+                            class="upload-photo-btn">
+
+                            📷 Upload Photo
+
+                        </label>
+
+
+                        <button
+                            type="button"
+                            id="removePhoto"
+                            class="remove-photo-btn">
+
+                            Remove Photo
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="profile-card">
+
+                <div class="card-heading">
+
+                    <div class="card-icon">
+                        👤
+                    </div>
+
+                    <div>
+
+                        <h2>
+                            Personal Information
+                        </h2>
+
+                        <p>
+                            Keep your basic information updated.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <form id="profileForm">
+
+
+                    <div class="input-group">
+
+                        <label for="profileName">
+                            Full Name
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <span class="input-icon">
+                                👤
+                            </span>
+
+                            <input
+                                type="text"
+                                id="profileName"
+                                name="name"
+                                placeholder="Enter your name"
+                                autocomplete="name">
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="input-group">
+
+                        <label for="profileEmail">
+                            Email Address
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <span class="input-icon">
+                                ✉
+                            </span>
+
+                            <input
+                                type="email"
+                                id="profileEmail"
+                                name="email"
+                                placeholder="you@example.com"
+                                autocomplete="email">
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="input-group">
+
+                        <label for="profileAge">
+                            Age
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <span class="input-icon">
+                                🎂
+                            </span>
+
+                            <input
+                                type="number"
+                                id="profileAge"
+                                name="age"
+                                placeholder="Enter your age"
+                                min="13"
+                                max="100">
+
+                        </div>
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        class="primary-btn">
+
+                        <span>
+                            Save Profile
+                        </span>
+
+                        <strong>
+                            →
+                        </strong>
+
+                    </button>
+
+                </form>
+
+            </div>
+
+            <div class="profile-card">
+
+
+                <div class="card-heading">
+
+                    <div class="card-icon">
+                        ✨
+                    </div>
+
+                    <div>
+
+                        <h2>
+                            Style Preferences
+                        </h2>
+
+                        <p>
+                            Tell GRWM what kind of looks you love.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label for="stylePreference">
+                        Favorite Style
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <span class="input-icon">
+                            👗
+                        </span>
+
+                        <select
+                            id="stylePreference"
+                            name="style">
+
+                            <option value="">
+                                Select your style
+                            </option>
+
+                            <option value="casual">
+                                Casual
+                            </option>
+
+                            <option value="streetwear">
+                                Streetwear
+                            </option>
+
+                            <option value="formal">
+                                Formal
+                            </option>
+
+                            <option value="traditional">
+                                Traditional
+                            </option>
+
+                            <option value="party">
+                                Party
+                            </option>
+
+                            <option value="minimal">
+                                Minimal
+                            </option>
+
+                            <option value="sporty">
+                                Sporty
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label for="favoriteColor">
+                        Favorite Color
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <span class="input-icon">
+                            🎨
+                        </span>
+
+                        <input
+                            type="text"
+                            id="favoriteColor"
+                            name="color"
+                            placeholder="Example: Black">
+
+                    </div>
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label for="favoriteOccasion">
+                        Preferred Occasion
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <span class="input-icon">
+                            ✨
+                        </span>
+
+                        <select
+                            id="favoriteOccasion"
+                            name="occasion">
+
+                            <option value="">
+                                Select occasion
+                            </option>
+
+                            <option value="college">
+                                College
+                            </option>
+
+                            <option value="casual">
+                                Casual Outing
+                            </option>
+
+                            <option value="party">
+                                Party
+                            </option>
+
+                            <option value="date">
+                                Special Event
+                            </option>
+
+                            <option value="formal">
+                                Formal Event
+                            </option>
+
+                            <option value="festival">
+                                Festival
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <button
+                    type="button"
+                    class="secondary-btn"
+                    id="savePreferences">
+
+                    ✨ Save Preferences
+
+                </button>
+
+            </div>
+
+            <div class="profile-card tryon-card">
+
+
+                <div class="card-heading">
+
+                    <div class="card-icon">
+                        🪞
+                    </div>
+
+                    <div>
+
+                        <h2>
+                            Virtual Try-On
+                        </h2>
+
+                        <p>
+                            See your selected outfit on your
+                            uploaded photo.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="try-on-section">
+
+                    <div class="try-on-icon">
+                        ✨
+                    </div>
+
+
+                    <h3>
+                        Ready for your fit check?
+                    </h3>
+
+
+                    <p>
+                        Select clothes from your wardrobe
+                        and generate your personalized look.
+                    </p>
+
+
+                    <button
+                        type="button"
+                        class="primary-btn"
+                        id="generateLookBtn">
+
+                        ✨ Generate My Look
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+    </main>
+
+    <div class="toast"
+         id="toast">
+
+        <span>
+            ⚠
+        </span>
+
+        <p id="toastMessage">
+            Something went wrong.
+        </p>
+
+    </div>
+
+    <script src="file.js"></script>
+
+
+</body>
+
+</html>

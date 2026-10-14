@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GRWM | Get Ready With Me</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --purple: #8b5cf6;
+            --pink: #ec4899;
+            --dark: #29222d;
+            --muted: #817987;
+            --background: #faf8fc;
+            --border: rgba(139, 92, 246, 0.13);
+        }
+
+        body {
+            font-family: "DM Sans", sans-serif;
+            background: var(--background);
+            color: var(--dark);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .blob {
+            position: fixed;
+            width: 350px;
+            height: 350px;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.18;
+            z-index: -1;
+        }
+
+        .blob-one {
+            background: var(--purple);
+            top: -100px;
+            left: -100px;
+        }
+
+        .blob-two {
+            background: var(--pink);
+            bottom: -120px;
+            right: -100px;
+        }
+
+        .login-container {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            gap: 60px;
+            padding: 50px 8%;
+        }
+
+        .fashion-section {
+            padding: 30px;
+        }
+
+        .brand {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--purple);
+            margin-bottom: 55px;
+        }
+
+        .eyebrow {
+            color: var(--pink);
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .fashion-section h1 {
+            font-family: "Playfair Display", serif;
+            font-size: clamp(42px, 5vw, 68px);
+            line-height: 1.05;
+            margin-bottom: 25px;
+        }
+
+        .fashion-section h1 span {
+            color: var(--purple);
+        }
+
+        .fashion-section p {
+            color: var(--muted);
+            font-size: 17px;
+            max-width: 480px;
+            line-height: 1.7;
+        }
+
+        .fashion-card {
+            margin-top: 45px;
+            max-width: 400px;
+            padding: 30px;
+            border: 1px solid var(--border);
+            background: rgba(255,255,255,0.7);
+            border-radius: 25px;
+            transform: rotate(-3deg);
+            box-shadow: 0 20px 45px rgba(70, 40, 90, 0.08);
+            transition: 0.3s;
+        }
+
+        .fashion-card:hover {
+            transform: rotate(0deg) translateY(-5px);
+        }
+
+        .fashion-card small {
+            color: var(--pink);
+            font-weight: 700;
+        }
+
+        .fashion-card h3 {
+            margin-top: 10px;
+            font-family: "Playfair Display", serif;
+            font-size: 26px;
+        }
+
+        .fashion-icon {
+            font-size: 55px;
+            margin-top: 20px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .login-section {
+            display: flex;
+            justify-content: center;
+        }
+
+        .login-card {
+            width: 100%;
+            max-width: 480px;
+            padding: 42px;
+            background: rgba(255,255,255,0.85);
+            border: 1px solid var(--border);
+            border-radius: 28px;
+            box-shadow: 0 25px 60px rgba(70,40,90,0.10);
+        }
+
+        .login-card h2 {
+            font-family: "Playfair Display", serif;
+            font-size: 34px;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: var(--muted);
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid #e6dff0;
+            border-radius: 12px;
+            outline: none;
+            font-family: inherit;
+            transition: 0.25s;
+        }
+
+        input:focus {
+            border-color: var(--purple);
+            box-shadow: 0 0 0 4px rgba(139,92,246,0.08);
+        }
+
+        .password-box {
+            position: relative;
+        }
+
+        .password-box input {
+            padding-right: 50px;
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            border: none;
+            background: none;
+        }
+
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 10px 0 25px;
+            font-size: 13px;
+        }
+
+        .remember {
+            display: flex;
+            gap: 7px;
+            align-items: center;
+        }
+
+        .remember input {
+            width: auto;
+        }
+
+        .forgot {
+            color: var(--purple);
+            cursor: pointer;
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 12px;
+            color: white;
+            background: linear-gradient(135deg, var(--purple), var(--pink));
+            font-weight: 700;
+            font-family: inherit;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(139,92,246,0.25);
+        }
+
+        .register-text {
+            text-align: center;
+            margin-top: 25px;
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .register-text a {
+            color: var(--purple);
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .toast {
+            position: fixed;
+            right: 25px;
+            bottom: 25px;
+            padding: 15px 22px;
+            background: var(--dark);
+            color: white;
+            border-radius: 12px;
+            display: none;
+        }
+
+        @media(max-width: 850px) {
+            .login-container {
+                grid-template-columns: 1fr;
+                padding: 30px 6%;
+            }
+
+            .fashion-section {
+                text-align: center;
+            }
+
+            .fashion-section p {
+                margin: auto;
+            }
+
+            .fashion-card {
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="blob blob-one"></div>
+    <div class="blob blob-two"></div>
+
+    <main class="login-container">
+
+        <section class="fashion-section">
+
+            <div class="brand">✦ GRWM</div>
+
+            <div class="eyebrow">✦ GET READY WITH ME</div>
+
+            <h1>
+                Okay bestie,<br>
+                what are we <span>serving?</span>
+            </h1>
+
+            <p>
+                Let’s create a look that feels right for you 👀✨
+            </p>
+
+            <div class="fashion-card">
+                <small>FIT CHECK 👀</small>
+                <h3>It's giving main character Energy!!</h3>
+                <div class="fashion-icon">💃🕺🏻</div>
+            </div>
+
+        </section>
+
+        <section class="login-section">
+
+            <div class="login-card">
+
+                <div style="font-size:35px; margin-bottom:10px;">💅</div>
+
+                <h2>Ohh, you're BACK back.</h2>
+
+                <p class="subtitle">
+                    Let's get that fit check started.
+                </p>
+
+                <form id="loginForm" method="POST" action="/login">
+
+                    <div class="form-group">
+                        <label for="email">Drop your mail</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">The secret..🤫</label>
+
+                        <div class="password-box">
+                            <input type="password" id="password" name="password" required>
+                            
+                        </div>
+                    </div>
+
+                    <div class="form-options">
+
+                        <label class="remember">
+                            <input type="checkbox" id="remember" name="remember">
+                            Remember Me!!
+                        </label>
+
+                        <span class="forgot" id="forgotPassword">
+                            Forgot it?
+                        </span>
+
+                    </div>
+
+                    <button type="submit">Let's Get Ready ✨</button>
+
+                </form>
+
+                <p class="register-text">
+                    New here?
+                    <a href="/signup">Create an account</a>
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <div class="toast" id="toast">
+        <span id="toastMessage"></span>
+    </div>
+
+    <script src="file.js"></script>
+
+</body>
+</html>

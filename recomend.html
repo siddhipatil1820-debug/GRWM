@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GRWM | Style Me</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            box-sizing:border-box;
+            margin:0;
+            padding:0;
+        }
+
+        :root {
+            --purple:#8b5cf6;
+            --pink:#ec4899;
+            --dark:#29222d;
+            --muted:#817987;
+            --background:#faf8fc;
+            --border:rgba(139,92,246,.13);
+        }
+
+        body {
+            font-family:"DM Sans",sans-serif;
+            background:var(--background);
+            color:var(--dark);
+        }
+
+        .navbar {
+            height:75px;
+            padding:0 7%;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            background:white;
+            border-bottom:1px solid var(--border);
+        }
+
+        .logo {
+            color:var(--purple);
+            font-size:22px;
+            font-weight:700;
+        }
+
+        .nav-links {
+            display:flex;
+            gap:25px;
+            align-items:center;
+        }
+
+        .nav-links a {
+            color:var(--muted);
+            text-decoration:none;
+            font-size:14px;
+            font-weight:600;
+        }
+
+        .nav-links a:hover,
+        .nav-links .active {
+            color:var(--purple);
+        }
+
+        .logout {
+            width:auto;
+            padding:9px 18px;
+            border:0;
+            border-radius:10px;
+            background:linear-gradient(135deg,var(--purple),var(--pink));
+            color:white;
+            font-weight:700;
+            cursor:pointer;
+        }
+
+        .page-container {
+            max-width:850px;
+            margin:auto;
+            padding:60px 25px;
+        }
+
+        .page-heading {
+            text-align:center;
+            margin-bottom:35px;
+        }
+
+        .page-heading h1 {
+            font-family:"Playfair Display",serif;
+            font-size:48px;
+            margin-bottom:12px;
+        }
+
+        .page-heading p {
+            color:var(--muted);
+        }
+
+        .recommendation-card {
+            background:white;
+            border:1px solid var(--border);
+            border-radius:25px;
+            padding:40px;
+            box-shadow:0 20px 50px rgba(70,40,90,.07);
+        }
+
+        .option-group {
+            margin-bottom:30px;
+        }
+
+        .option-group h3 {
+            font-family:"Playfair Display",serif;
+            font-size:22px;
+            margin-bottom:15px;
+        }
+
+        .radio-grid {
+            display:grid;
+            grid-template-columns:repeat(4,1fr);
+            gap:10px;
+        }
+
+        .radio-option input {
+            display:none;
+        }
+
+        .radio-option span {
+            display:block;
+            text-align:center;
+            padding:13px 8px;
+            border:1px solid #e4ddea;
+            border-radius:12px;
+            cursor:pointer;
+            color:var(--muted);
+            transition:.25s;
+        }
+
+        .radio-option input:checked + span {
+            background:linear-gradient(135deg,var(--purple),var(--pink));
+            color:white;
+            border-color:transparent;
+        }
+
+        textarea {
+            width:100%;
+            min-height:120px;
+            padding:15px;
+            border:1px solid #e4ddea;
+            border-radius:12px;
+            resize:vertical;
+            font-family:inherit;
+            outline:none;
+        }
+
+        textarea:focus {
+            border-color:var(--purple);
+        }
+
+        .recommend-button {
+            width:100%;
+            padding:15px;
+            border:0;
+            border-radius:12px;
+            background:linear-gradient(135deg,var(--purple),var(--pink));
+            color:white;
+            font-family:inherit;
+            font-weight:700;
+            cursor:pointer;
+            transition:.3s;
+        }
+
+        .recommend-button:hover {
+            transform:translateY(-2px);
+            box-shadow:0 10px 25px rgba(139,92,246,.25);
+        }
+
+        @media(max-width:650px) {
+            .radio-grid {
+                grid-template-columns:repeat(2,1fr);
+            }
+
+            .recommendation-card {
+                padding:25px;
+            }
+
+            .page-heading h1 {
+                font-size:40px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar">
+
+        <div class="logo">✦ GRWM</div>
+
+        <div class="nav-links">
+            <a href="dashboard.html">Dashboard</a>
+            <a href="profile.html">Profile</a>
+            <a href="wardrobe.html">Wardrobe</a>
+            <a href="recommendation.html" class="active">Style Me</a>
+            <button class="logout" onclick="logout()">Logout</button>
+        </div>
+
+    </nav>
+
+    <main class="page-container">
+
+        <div class="page-heading">
+
+            <p style="color:var(--pink);font-weight:700;">
+                ✦ LET'S STYLE YOU
+            </p>
+
+            <h1>What are we wearing?</h1>
+
+            <p>
+                Tell GRWM a little about your plan and we'll create your look.
+            </p>
+
+        </div>
+
+        <div class="recommendation-card">
+
+            <div class="option-group">
+
+                <h3>What's the occasion?</h3>
+
+                <div class="radio-grid">
+
+                    <label class="radio-option">
+                        <input type="radio" name="occasion" value="Casual">
+                        <span>👟 Casual</span>
+                    </label>
+
+                    <label class="radio-option">
+                        <input type="radio" name="occasion" value="College">
+                        <span>🎓 College</span>
+                    </label>
+
+                    <label class="radio-option">
+                        <input type="radio" name="occasion" value="Party">
+                        <span>🎉 Party</span>
+                    </label>
+
+                    <label class="radio-option">
+                        <input type="radio" name="occasion" value="Formal">
+                        <span>💼 Formal</span>
+                    </label>
+
+                </div>
+
+            </div>
+
+            <div class="option-group">
+
+                <h3>What's your vibe?</h3>
+
+                <div class="radio-grid">
+
+                    <label class="radio-option">
+                        <input type="radio" name="style" value="Classic">
+                        <span>Classic</span>
+                    </label>
+
+                    <label class="radio-option">
+                        <input type="radio" name="style" value="Trendy">
+                        <span>Trendy</span>
+                    </label>
+
+                    <label class="radio-option">
+                        <input type="radio" name="style" value="Minimal">
+                        <span>Minimal</span>
+                    </label>
+
+                    <label class="radio-option">
+                        <input type="radio" name="style" value="Elegant">
+                        <span>Elegant</span>
+                    </label>
+
+                </div>
+
+            </div>
+
+            <div class="option-group">
+
+                <h3>Preferred color?</h3>
+
+                <div class="radio-grid">
+
+                    <label class="radio-option">
+                        <input type="radio" name="color" value="Black">
+                        <span>🖤 Black</span>
+                    </label>
+
+                    <label class="radio-option">
+                        <input type="radio" name="color" value="White">
+                        <span>🤍 White</span>
+                    </label>
+
+                    <label class="radio-option">
+                        <input type="radio" name="color" value="Blue">
+                        <span>💙 Blue</span>
+                    </label>
+
+                    <label class="radio-option">
+                        <input type="radio" name="color" value="Any">
+                        <span>✨ Any</span>
+                    </label>
+
+                </div>
+
+            </div>
+
+            <div class="option-group">
+
+                <h3>Anything else?</h3>
+
+                <textarea id="additionalDetails"
+                    placeholder="Tell us anything else about your look..."></textarea>
+
+            </div>
+
+            <button class="recommend-button"
+                onclick="getRecommendation()">
+                ✨ Create My Look
+            </button>
+
+        </div>
+
+    </main>
+
+    <script src="script.js"></script>
+
+</body>
+</html>

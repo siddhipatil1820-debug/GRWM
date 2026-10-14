@@ -1,0 +1,625 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GRWM | My Wardrobe</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --purple: #8b5cf6;
+            --pink: #ec4899;
+            --dark: #29222d;
+            --muted: #817987;
+            --background: #faf8fc;
+            --border: rgba(139, 92, 246, .13);
+        }
+
+        body {
+            font-family: "DM Sans", sans-serif;
+            background: var(--background);
+            color: var(--dark);
+        }
+
+        .navbar {
+            height: 75px;
+            padding: 0 7%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: white;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .logo {
+            color: var(--purple);
+            font-size: 22px;
+            font-weight: 700;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .nav-links a:hover {
+            color: var(--purple);
+        }
+
+        .logout {
+            width: auto;
+            padding: 9px 18px;
+            background: linear-gradient(135deg, var(--purple), var(--pink));
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .page-container {
+            max-width: 1100px;
+            margin: auto;
+            padding: 55px 25px;
+        }
+
+        .page-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .page-heading h1 {
+            font-family: "Playfair Display", serif;
+            font-size: 45px;
+        }
+
+        .wardrobe-total {
+            background: white;
+            border: 1px solid var(--border);
+            padding: 15px 25px;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .wardrobe-total strong {
+            display: block;
+            font-size: 28px;
+            color: var(--purple);
+        }
+
+        .wardrobe-form {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 22px;
+            padding: 30px;
+            margin-bottom: 35px;
+        }
+
+        .wardrobe-form h2 {
+            font-family: "Playfair Display", serif;
+            margin-bottom: 20px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+        }
+
+        label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 7px;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #e5deed;
+            border-radius: 10px;
+            font-family: inherit;
+            outline: none;
+            background: white;
+        }
+
+        input:focus,
+        select:focus {
+            border-color: var(--purple);
+        }
+
+        /* PHOTO UPLOAD */
+
+        .photo-upload {
+            grid-column: 1 / -1;
+        }
+
+        .photo-input {
+            width: 100%;
+            padding: 12px;
+            border: 1px dashed var(--purple);
+            border-radius: 10px;
+            background: #faf8fc;
+            cursor: pointer;
+        }
+
+        .photo-preview {
+            width: 100%;
+            height: 180px;
+            margin-top: 12px;
+            border: 1px dashed #ddd;
+            border-radius: 15px;
+            background: #faf8fc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .photo-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .add-button {
+            margin-top: 20px;
+            padding: 13px 25px;
+            width: auto;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(135deg, var(--purple), var(--pink));
+            color: white;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .add-button:hover {
+            transform: translateY(-2px);
+        }
+
+        .wardrobe-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .wardrobe-item {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 18px;
+            transition: .3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .wardrobe-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 30px rgba(70, 40, 90, .08);
+        }
+
+        /* CLOTHING PHOTO IN CARD */
+
+        .clothing-photo {
+            width: 100%;
+            height: 230px;
+            border-radius: 15px;
+            background: #faf8fc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            margin-bottom: 15px;
+        }
+
+        .clothing-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .item-icon {
+            font-size: 45px;
+        }
+
+        .wardrobe-item h3 {
+            font-family: "Playfair Display", serif;
+            margin-bottom: 8px;
+        }
+
+        .wardrobe-item p {
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .delete-item {
+            position: absolute;
+            top: 28px;
+            right: 28px;
+            width: 30px;
+            height: 30px;
+            border: none;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, .9);
+            color: #d94672;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, .08);
+        }
+
+        .delete-item:hover {
+            background: #fff0f4;
+        }
+
+        .empty-wardrobe {
+            text-align: center;
+            padding: 50px;
+            color: var(--muted);
+            background: white;
+            border-radius: 20px;
+            border: 1px dashed #ddd;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background: var(--dark);
+            color: white;
+            padding: 14px 20px;
+            border-radius: 10px;
+            display: none;
+            z-index: 100;
+        }
+
+        @media(max-width: 800px) {
+
+            .nav-links {
+                gap: 8px;
+            }
+
+            .form-grid,
+            .wardrobe-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .page-heading {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 20px;
+            }
+
+            .photo-upload {
+                grid-column: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar">
+
+        <div class="logo">✦ GRWM</div>
+
+        <div class="nav-links">
+
+            <a href="dashboard.html">Dashboard</a>
+
+            <a href="profile.html">Profile</a>
+
+            <a href="wardrobe.html">Wardrobe</a>
+
+            <a href="recommendation.html">Style Me</a>
+
+            <button class="logout" onclick="logout()">
+                Logout
+            </button>
+
+        </div>
+
+    </nav>
+
+
+    <main class="page-container">
+
+        <div class="page-heading">
+
+            <div>
+
+                <p style="color:var(--pink);font-weight:700;margin-bottom:8px;">
+                    ✦ YOUR CLOSET
+                </p>
+
+                <h1>My Wardrobe</h1>
+
+            </div>
+
+            <div class="wardrobe-total">
+
+                <strong id="wardrobeTotal">0</strong>
+
+                Items
+
+            </div>
+
+        </div>
+
+
+        <form class="wardrobe-form" id="wardrobeForm">
+
+            <h2>Add a new piece ✨</h2>
+
+            <div class="form-grid">
+
+                <div>
+
+                    <label for="itemName">
+                        Item Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="itemName"
+                        placeholder="e.g. White Shirt"
+                        required>
+
+                </div>
+
+
+                <div>
+
+                    <label for="itemCategory">
+                        Category
+                    </label>
+
+                    <select id="itemCategory" required>
+
+                        <option value="">
+                            Select category
+                        </option>
+
+                        <option>Tops</option>
+
+                        <option>Bottoms</option>
+
+                        <option>Dresses</option>
+
+                        <option>Outerwear</option>
+
+                        <option>Shoes</option>
+
+                        <option>Accessories</option>
+
+                    </select>
+
+                </div>
+
+
+                <div>
+
+                    <label for="itemColor">
+                        Color
+                    </label>
+
+                    <input
+                        type="text"
+                        id="itemColor"
+                        placeholder="e.g. White"
+                        required>
+
+                </div>
+
+
+                <div>
+
+                    <label for="itemStyle">
+                        Style
+                    </label>
+
+                    <select id="itemStyle" required>
+
+                        <option value="">
+                            Select style
+                        </option>
+
+                        <option>Casual</option>
+
+                        <option>Minimal</option>
+
+                        <option>Trendy</option>
+
+                        <option>Elegant</option>
+
+                        <option>Formal</option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- NEW CLOTHING PHOTO -->
+
+                <div class="photo-upload">
+
+                    <label for="itemPhoto">
+                        Clothing Photo
+                    </label>
+
+                    <input
+                        class="photo-input"
+                        type="file"
+                        id="itemPhoto"
+                        accept="image/png, image/jpeg, image/jpg"
+                        required>
+
+                    <div
+                        class="photo-preview"
+                        id="photoPreview">
+
+                        <span>
+                            📸 Select a photo of your clothing
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <button
+                class="add-button"
+                type="submit">
+
+                + Add to Wardrobe
+
+            </button>
+
+        </form>
+
+
+        <div
+            class="wardrobe-grid"
+            id="wardrobeGrid">
+        </div>
+
+
+        <div
+            class="empty-wardrobe"
+            id="emptyWardrobe">
+
+            <div
+                style="font-size:50px;margin-bottom:15px;">
+                👗
+            </div>
+
+            <h3>
+                Your wardrobe is waiting!
+            </h3>
+
+            <p style="margin-top:8px;">
+
+                Add your first clothing item above.
+
+            </p>
+
+        </div>
+
+    </main>
+
+
+    <div class="toast" id="toast">
+
+        <span id="toastMessage"></span>
+
+    </div>
+
+
+    <script src="file.js"></script>
+
+
+    <script>
+
+        /* PHOTO PREVIEW */
+
+        const itemPhoto =
+            document.getElementById("itemPhoto");
+
+        const photoPreview =
+            document.getElementById("photoPreview");
+
+
+        if (itemPhoto) {
+
+            itemPhoto.addEventListener(
+                "change",
+                function () {
+
+                    const file =
+                        this.files[0];
+
+                    if (!file) {
+
+                        photoPreview.innerHTML =
+                            "<span>📸 Select a photo of your clothing</span>";
+
+                        return;
+
+                    }
+
+
+                    /* Check if selected file is an image */
+
+                    if (!file.type.startsWith("image/")) {
+
+                        photoPreview.innerHTML =
+                            "<span>Please select an image file.</span>";
+
+                        this.value = "";
+
+                        return;
+
+                    }
+
+
+                    const reader =
+                        new FileReader();
+
+
+                    reader.onload =
+                        function (event) {
+
+                            photoPreview.innerHTML = `
+
+                                <img
+                                    src="${event.target.result}"
+                                    alt="Clothing Preview">
+
+                            `;
+
+                        };
+
+
+                    reader.readAsDataURL(file);
+
+                }
+            );
+
+        }
+
+    </script>
+
+</body>
+
+</html>

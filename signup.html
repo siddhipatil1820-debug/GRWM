@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GRWM | Create Account</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --purple: #8b5cf6;
+            --pink: #ec4899;
+            --dark: #29222d;
+            --muted: #817987;
+            --background: #faf8fc;
+            --border: rgba(139,92,246,0.13);
+        }
+
+        body {
+            font-family: "DM Sans", sans-serif;
+            background: var(--background);
+            color: var(--dark);
+            min-height: 100vh;
+        }
+
+        .blob {
+            position: fixed;
+            width: 350px;
+            height: 350px;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: .18;
+            z-index: -1;
+        }
+
+        .blob-one {
+            background: var(--purple);
+            top: -100px;
+            left: -100px;
+        }
+
+        .blob-two {
+            background: var(--pink);
+            bottom: -100px;
+            right: -100px;
+        }
+
+        .register-container {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            gap: 60px;
+            padding: 50px 8%;
+        }
+
+        .fashion-section {
+            padding: 30px;
+        }
+
+        .brand {
+            color: var(--purple);
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 55px;
+        }
+
+        .fashion-section h1 {
+            font-family: "Playfair Display", serif;
+            font-size: clamp(45px,5vw,65px);
+            line-height: 1.1;
+            margin-bottom: 25px;
+        }
+
+        .fashion-section h1 span {
+            color: var(--pink);
+        }
+
+        .fashion-section p {
+            color: var(--muted);
+            line-height: 1.7;
+            max-width: 470px;
+            font-size: 17px;
+        }
+
+        .fashion-card {
+            margin-top: 45px;
+            max-width: 400px;
+            padding: 30px;
+            background: rgba(255,255,255,.75);
+            border: 1px solid var(--border);
+            border-radius: 25px;
+            transform: rotate(3deg);
+            box-shadow: 0 20px 45px rgba(70,40,90,.08);
+        }
+
+        .fashion-card small {
+            color: var(--pink);
+            font-weight: 700;
+        }
+
+        .fashion-card h3 {
+            font-family: "Playfair Display",serif;
+            font-size: 26px;
+            margin-top: 10px;
+        }
+
+        .fashion-icon {
+            font-size: 55px;
+            margin-top: 20px;
+        }
+
+        .register-section {
+            display: flex;
+            justify-content: center;
+        }
+
+        .register-card {
+            width: 100%;
+            max-width: 500px;
+            background: rgba(255,255,255,.88);
+            border: 1px solid var(--border);
+            border-radius: 28px;
+            padding: 40px;
+            box-shadow: 0 25px 60px rgba(70,40,90,.10);
+        }
+
+        .register-card h2 {
+            font-family: "Playfair Display",serif;
+            font-size: 34px;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: var(--muted);
+            margin-bottom: 28px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid #e5deed;
+            border-radius: 12px;
+            outline: none;
+            font-family: inherit;
+        }
+
+        input:focus {
+            border-color: var(--purple);
+            box-shadow: 0 0 0 4px rgba(139,92,246,.08);
+        }
+
+        .password-box {
+            position: relative;
+        }
+
+        .password-box input {
+            padding-right: 50px;
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            border: none;
+            background: none;
+            width: auto;
+            padding: 5px;
+            color: var(--dark);
+        }
+
+        .strength {
+            height: 5px;
+            background: #eee;
+            border-radius: 10px;
+            margin-top: 8px;
+            overflow: hidden;
+        }
+
+        #strengthBar {
+            height: 100%;
+            width: 0%;
+            transition: .3s;
+        }
+
+        #strengthText {
+            font-size: 12px;
+            color: var(--muted);
+            margin-top: 5px;
+        }
+
+        .terms {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            font-size: 13px;
+            margin: 20px 0;
+        }
+
+        .terms input {
+            width: auto;
+        }
+
+        .terms a {
+            color: var(--purple);
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(135deg,var(--purple),var(--pink));
+            color: white;
+            font-weight: 700;
+            font-family: inherit;
+            cursor: pointer;
+            transition: .3s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(139,92,246,.25);
+        }
+
+        .login-text {
+            text-align: center;
+            color: var(--muted);
+            margin-top: 22px;
+            font-size: 14px;
+        }
+
+        .login-text a {
+            color: var(--purple);
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .footer {
+            text-align: center;
+            color: var(--muted);
+            margin-top: 25px;
+            font-size: 13px;
+        }
+
+        .toast {
+            position: fixed;
+            right: 25px;
+            bottom: 25px;
+            background: var(--dark);
+            color: white;
+            padding: 15px 22px;
+            border-radius: 12px;
+            display: none;
+        }
+
+        @media(max-width:850px) {
+            .register-container {
+                grid-template-columns: 1fr;
+                padding: 30px 6%;
+            }
+
+            .fashion-section {
+                text-align: center;
+            }
+
+            .fashion-section p {
+                margin: auto;
+            }
+
+            .fashion-card {
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="blob blob-one"></div>
+    <div class="blob blob-two"></div>
+
+    <main class="register-container">
+
+        <section class="fashion-section">
+
+            <div class="brand">✦ GRWM</div>
+
+            <h1>
+                Your style,<br>
+                <span>your way.</span>
+            </h1>
+
+            <p>
+                Create your account and start building your personal wardrobe with GRWM.
+            </p>
+
+            <div class="fashion-card">
+
+                <small>YOUR STYLE SPACE</small>
+
+                <h3>Wear what feels like you.</h3>
+
+                <div class="fashion-icon">👗</div>
+
+            </div>
+
+        </section>
+
+        <section class="register-section">
+
+            <div class="register-card">
+
+                <div style="font-size:35px;margin-bottom:10px;">✨</div>
+
+                <h2>Create your account.</h2>
+
+                <p class="subtitle">
+                    Your personal style journey starts here.
+                </p>
+
+                <form id="registerForm" method="POST" action="/signup">
+
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+
+                    <div class="form-group">
+
+                        <label for="password">Password</label>
+
+                        <div class="password-box">
+                            <input type="password" id="password" name="password" required>
+                            <button type="button"
+                                id="togglePassword"
+                                class="toggle-password">👁️</button>
+                        </div>
+
+                        <div class="strength">
+                            <div id="strengthBar"></div>
+                        </div>
+
+                        <div id="strengthText">
+                            Password strength
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label for="confirmPassword">
+                            Confirm Password
+                        </label>
+
+                        <div class="password-box">
+                            <input type="password"
+                                id="confirmPassword"
+                                name="confirm_password"
+                                required>
+
+                            <button type="button"
+                                id="toggleConfirmPassword"
+                                class="toggle-password">
+                                👁️
+                            </button>
+                        </div>
+
+                    </div>
+
+                    <label class="terms">
+                        <input type="checkbox" id="terms" name="terms" required>
+                        I agree to the terms and conditions.
+                    </label>
+
+                    <button type="submit">
+                        Create My Account ✨
+                    </button>
+
+                </form>
+
+                <p class="login-text">
+                    Already have an account?
+                    <a href="/login">Login</a>
+                </p>
+
+                <div class="footer">
+                    ✦ Your wardrobe. Your style. Your GRWM.
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <div class="toast" id="toast">
+        <span id="toastMessage"></span>
+    </div>
+
+    <script src="file.js"></script>
+
+</body>
+</html>
